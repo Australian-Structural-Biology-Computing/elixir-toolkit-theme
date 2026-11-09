@@ -10,6 +10,10 @@ title: ELIXIR Toolkit Theme
 description: "Flexible Jekyll theme using bootstrap 5 as CSS framework."
 # Metadata description of the website
 
+workflowhub:
+  enabled: true
+  collection_id: 40
+
 dsw_deep_link_prefix: https://researchers.ds-wizard.org/knowledge-models/dsw:root:latest/preview?questionUuid=
 # prefix for DSW deep links to a certain question
 

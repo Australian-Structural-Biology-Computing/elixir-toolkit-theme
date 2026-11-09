@@ -10,3 +10,4 @@ vendor/
 .vscode/
 Gemfile.lock
 .ruby-version
+**/__pycache__/
