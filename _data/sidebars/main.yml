@@ -33,6 +33,8 @@ subitems:
         url: /resource_table
       - title: Supported by
         url: /supported_by
+      - title: WorkflowHub workflows table
+        url: /workflowhub_integration
   - title: Versions and upgrades
     icon: icon-refresh-cw
     subitems:
@@ -70,6 +72,8 @@ subitems:
             url: /general_page_7
       - title: All training
         url: /all_trainings
+      - title: Workflows
+        url: /workflows
       - title: List of page IDs
         url: /list_page_ids
   - title: Page Not Found

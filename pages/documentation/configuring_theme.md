@@ -82,6 +82,11 @@ theme_variables:
   fonts:
     - url to a font
   breadcrumb: false
+
+workflowhub:
+  enabled: false
+  collection_id:
+  base_url: https://workflowhub.eu
 ```
 
 More detailed information about these settings can be found here:
@@ -123,3 +128,9 @@ More detailed information about these settings can be found here:
 * **`theme_color`**: This is the primary theme color which is used in the metadata of the website. Please use the hex color without the hashtag as value.
 * **`fonts`**: List URLs to Google Fonts or other custom fonts for your website.
 * **`breadcrumb`**: Adds a breadcrumb above the title of every page. The breadcrumb will always represent the URL pattern and works best in combination with [permalink style](https://jekyllrb.com/docs/permalinks/#built-in-formats) *pretty*. Default: *false*
+* **workflowhub**: Top-level settings for WorkflowHub links and optional collection-based data generation. Do not nest this block under `theme_variables`.
+  * **`enabled`**: Enable collection-based WorkflowHub data generation. This is not required when maintaining the data file manually. Default: *false*.
+  * **`collection_id`**: ID of the WorkflowHub collection to retrieve. Required when enabled.
+  * **`base_url`**: WorkflowHub instance to query. Default: `https://workflowhub.eu`.
+
+See the [WorkflowHub workflows table documentation](workflowhub_integration) for manual maintenance, table rendering and optional GitHub Actions automation.

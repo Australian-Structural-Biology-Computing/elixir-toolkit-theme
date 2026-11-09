@@ -1,0 +1,67 @@
+{%- assign workflows = site.data.data_workflows -%}
+{%- if workflows -%}
+  {%- assign workflows = workflows | sort_natural: "title" -%}
+{%- endif -%}
+{%- if workflows and workflows.size > 0 -%}
+<a class="visually-hidden-focusable" href="#skip-workflow-table">Skip workflow table</a>
+<div class="table-responsive mt-4 mb-5">
+  <table class="workflowtable table display">
+    <thead>
+      <tr class="text-nowrap">
+        <th>Workflow</th>
+        <th>Type</th>
+        <th>Topics</th>
+        <th>Operations</th>
+        <th>License</th>
+        <th>Updated</th>
+        <th>Projects</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for workflow in workflows -%}
+      {%- assign workflow_url = workflow.url -%}
+      {%- assign first_character = workflow_url | slice: 0, 1 -%}
+      {%- if first_character == "/" -%}
+        {%- assign workflowhub_base_url = site.workflowhub.base_url | default: "https://workflowhub.eu" -%}
+        {%- assign workflow_url = workflow_url | prepend: workflowhub_base_url -%}
+      {%- endif -%}
+      <tr>
+        <td>
+          <a href="{{ workflow_url }}">{{ workflow.title | escape }}</a>
+          {%- if workflow.remote_link != blank or workflow.doi != blank -%}
+          <div class="small mt-1">
+            {%- if workflow.remote_link != blank %}<a href="{{ workflow.remote_link }}">Source</a>{% endif -%}
+            {%- if workflow.remote_link != blank and workflow.doi != blank %}<span aria-hidden="true"> · </span>{% endif -%}
+            {%- if workflow.doi != blank %}<a href="https://doi.org/{{ workflow.doi | escape }}">DOI</a>{% endif -%}
+          </div>
+          {%- endif -%}
+        </td>
+        <td>{{ workflow.class | escape }}</td>
+        <td>
+          {%- for topic in workflow.edam_top -%}
+          <span class="badge text-bg-light border text-wrap">{{ topic | escape }}</span>{% unless forloop.last %} {% endunless %}
+          {%- endfor -%}
+        </td>
+        <td>
+          {%- for operation in workflow.edam_ops -%}
+          <span class="badge text-bg-light border text-wrap">{{ operation | escape }}</span>{% unless forloop.last %} {% endunless %}
+          {%- endfor -%}
+        </td>
+        <td>{{ workflow.license | escape }}</td>
+        <td data-order="{{ workflow.updated_at | escape }}">{{ workflow.updated_at | escape }}</td>
+        <td>
+          {%- for project in workflow.projects -%}
+          {{ project | escape }}{% unless forloop.last %}<br>{% endunless %}
+          {%- endfor -%}
+        </td>
+      </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+</div>
+<div id="skip-workflow-table"></div>
+{%- else -%}
+<div class="alert alert-info" role="status">
+  No WorkflowHub records are available. Enable the WorkflowHub integration and run its update workflow to populate this table.
+</div>
+{%- endif -%}

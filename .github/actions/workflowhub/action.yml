@@ -1,0 +1,18 @@
+name: Update WorkflowHub data
+description: Generate validated Jekyll data from a configured WorkflowHub collection
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: "3.12"
+
+    - name: Install dependencies
+      shell: bash
+      run: python -m pip install "requests>=2.32,<3" "PyYAML>=6,<7"
+
+    - name: Generate WorkflowHub data
+      shell: bash
+      run: python "$GITHUB_ACTION_PATH/workflowhub_finder.py"
