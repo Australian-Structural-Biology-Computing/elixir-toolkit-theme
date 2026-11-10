@@ -8,7 +8,7 @@ import yaml
 
 
 DEFAULT_BASE_URL = "https://workflowhub.eu"
-OUTPUT_PATH = Path("_data/data_workflows.yaml")
+OUTPUT_PATH = Path("_data/workflows.yaml")
 REQUEST_TIMEOUT = 30.0
 REQUIRED_FIELDS = ("title", "url")
 

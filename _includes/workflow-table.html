@@ -1,4 +1,4 @@
-{%- assign workflows = site.data.data_workflows -%}
+{%- assign workflows = site.data.workflows -%}
 {%- if workflows -%}
   {%- assign workflows = workflows | sort_natural: "title" -%}
 {%- endif -%}
@@ -13,7 +13,7 @@
         <th>Topics</th>
         <th>Operations</th>
         <th>License</th>
-        <th>Updated</th>
+        <th>Last updated</th>
         <th>Projects</th>
       </tr>
     </thead>
@@ -51,7 +51,7 @@
         <td data-order="{{ workflow.updated_at | escape }}">{{ workflow.updated_at | escape }}</td>
         <td>
           {%- for project in workflow.projects -%}
-          {{ project | escape }}{% unless forloop.last %}<br>{% endunless %}
+          <span class="badge text-bg-light border text-wrap">{{ project | escape }}</span>{% unless forloop.last %}<br>{% endunless %}
           {%- endfor -%}
         </td>
       </tr>

@@ -1,5 +1,5 @@
 ---
-title: WorkflowHub workflows table
+title: Workflows table
 datatable: true
 ---
 
@@ -7,31 +7,38 @@ The theme can display workflows in a searchable table. Workflow metadata is stor
 
 The data file can be maintained manually. Sites that use a public WorkflowHub collection can optionally use the supplied GitHub Actions workflow to keep it up to date.
 
+
 ## Way of working
 
-The `{% raw %}{% include workflow-table.html %}{% endraw %}` include reads the committed `_data/data_workflows.yaml` file. The file can be edited manually or generated from a WorkflowHub collection. Jekyll does not contact WorkflowHub when it builds the site.
+The snippet `{% raw %}{% include workflow-table.html %}{% endraw %}` adds a table containing the workflow metadata from the `_data/workflows.yaml` file. The file can be edited manually or generated from a WorkflowHub collection using a GitHub action. 
+
+{% include callout.html type="note" title="Legacy callout" content="Jekyll does not contact WorkflowHub when it builds the site." %}
+
 
 ## Prerequisites
 
 * Use a recent version of the ELIXIR Toolkit Theme.
-* Create `_data/data_workflows.yaml` manually or generate it from a WorkflowHub collection.
+* Create `_data/workflows.yaml` manually, or generate it from a WorkflowHub collection.
 * Add `datatable: true` to the front matter of pages that render the table.
+
 
 ## The main YAML file
 
-`_data/data_workflows.yaml` contains a top-level list of workflow records. Only `title` and `url` are required. The supported fields are:
+`_data/workflows.yaml` contains a top-level list of workflow records. Only `title` and `url` are required. 
+
+The supported fields are:
 
 * **`title`**: Display name of the workflow.
 * **`url`**: Absolute WorkflowHub URL, or a path relative to the configured `workflowhub.base_url`.
 * **`class`**: Workflow type, such as `nextflow`, `galaxy` or `snakemake`.
 * **`edam_top`**: List of EDAM topics.
 * **`edam_ops`**: List of EDAM operations.
-* **`license`**: Workflow licence identifier.
+* **`license`**: Workflow license identifier.
 * **`updated_at`**: Last update date in `YYYY-MM-DD` format.
-* **`projects`**: List of contributing projects or teams.
+* **`projects`**: List of contributing projects (also known as Teams for WorkflowHub).
 * **`doi`**: DOI without the `https://doi.org/` prefix.
 * **`remote_link`**: Link to the source repository.
-* **`tools`**: Tool metadata supplied by WorkflowHub. This is retained in the data file but is not currently displayed by the table.
+* **`tools`**: Tool metadata supplied by WorkflowHub. This is retained in the `_data/workflows.yaml` file but is not currently displayed by the table.
 
 For example:
 
@@ -52,14 +59,17 @@ For example:
   tools: ''
 ```
 
+
 ## Maintaining workflows manually
 
-1. Create `_data/data_workflows.yaml` if it does not already exist.
+1. Create `_data/workflows.yaml` if it does not already exist.
 2. Add or update records using the fields above. Use two spaces for YAML indentation.
 3. Check that every record has a unique, non-empty `url` and a non-empty `title`.
-4. Preview the site locally and commit the updated data file.
+4. Preview the site locally to check that the changes render correctly in the table.
+5. Commit the updated data file.
 
 Manual data maintenance does not require `workflowhub.enabled` or a `collection_id`. When a record uses a relative `url`, the table resolves it against `workflowhub.base_url`, which defaults to `https://workflowhub.eu`.
+
 
 ## Listing workflows
 
@@ -72,7 +82,7 @@ datatable: true
 ---
 ```
 
-Then add the table include where it should appear:
+Then add the table include snippet where it should appear on the page:
 
 ```liquid
 {% raw %}{% include workflow-table.html %}{% endraw %}
@@ -83,6 +93,7 @@ This renders as:
 {% include workflow-table.html %}
 
 See the [workflows example page](workflows) for the rendered result.
+
 
 ## Generating the data manually
 
@@ -97,7 +108,8 @@ workflowhub:
   # base_url: https://workflowhub.eu
 ```
 
-Replace `40` with the collection ID for the site. `base_url` is optional and defaults to `https://workflowhub.eu`.
+Replace `40` with the collection ID that you would like to use for the site. 
+`base_url` is optional and defaults to `https://workflowhub.eu`.
 
 Create a Python environment and install the generator dependencies:
 
@@ -113,7 +125,9 @@ From the root of the website repository, run the script from the theme checkout:
 python /path/to/elixir-toolkit-theme/.github/actions/workflowhub/workflowhub_finder.py
 ```
 
-The command writes `_data/data_workflows.yaml`. Review the resulting diff, preview the site and commit the data file. Re-run the command whenever the collection needs to be refreshed.
+The command writes `_data/workflows.yaml`. Review the resulting diff, preview the site, and commit the data file. 
+Re-run the command whenever the collection needs to be refreshed.
+
 
 ## Optional automated updates
 
@@ -123,14 +137,16 @@ When it runs, the workflow:
 
 1. Checks out the website's default branch.
 2. Loads the generator from the same theme commit as the workflow.
-3. Reads the website's WorkflowHub settings and generates `_data/data_workflows.yaml`.
+3. Reads the website's WorkflowHub settings and generates `_data/workflows.yaml`.
 4. Opens or updates a pull request if the data changed. It does not write directly to the default branch.
 
 The workflow uses the repository's `GITHUB_TOKEN`; a separate WorkflowHub or personal access token is not required.
 
+
 ### Forks
 
-Forks inherit `.github/workflows/workflowhub.yml` and the generator, so they do not need a caller workflow. Enable GitHub Actions and permission for Actions to create pull requests, then run **Update WorkflowHub data** from the Actions tab.
+Forks inherit `.github/workflows/workflowhub.yml` and the generator, so they do not need a caller workflow. Enable GitHub Actions and permission for Actions to create pull requests, then run **Update WorkflowHub data** from the `Actions` tab.
+
 
 ### Gem and remote-theme sites
 

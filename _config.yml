@@ -11,6 +11,7 @@ description: "Flexible Jekyll theme using bootstrap 5 as CSS framework."
 # Metadata description of the website
 
 workflowhub:
+# Optional: define the settings for import of computational workflows from the WorkflowHub registry
   enabled: true
   collection_id: 40
 

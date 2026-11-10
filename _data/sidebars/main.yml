@@ -33,7 +33,7 @@ subitems:
         url: /resource_table
       - title: Supported by
         url: /supported_by
-      - title: WorkflowHub workflows table
+      - title: Workflows table
         url: /workflowhub_integration
   - title: Versions and upgrades
     icon: icon-refresh-cw
