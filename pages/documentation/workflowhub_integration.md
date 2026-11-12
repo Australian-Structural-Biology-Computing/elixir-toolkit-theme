@@ -3,14 +3,14 @@ title: Workflows table
 datatable: true
 ---
 
-The theme can display workflows in a searchable table. Workflow metadata is stored in `_data/data_workflows.yaml`, following the same data-file pattern as the [tools and resources table](resource_table).
+The theme can display workflows in a searchable table. Workflow metadata is stored in `_data/workflows.yaml`, following the same data-file pattern as the [tools and resources table](resource_table).
 
 The data file can be maintained manually. Sites that use a public WorkflowHub collection can optionally use the supplied GitHub Actions workflow to keep it up to date.
 
 
 ## Way of working
 
-The snippet `{% raw %}{% include workflow-table.html %}{% endraw %}` adds a table containing the workflow metadata from the `_data/workflows.yaml` file. The file can be edited manually or generated from a WorkflowHub collection using a GitHub action. 
+The snippet `{% raw %}{% include workflow-table.html %}{% endraw %}` adds a table containing the workflow metadata from the `_data/workflows.yaml` file. The file can be edited manually or generated from a WorkflowHub collection using a GitHub action.
 
 {% include callout.html type="note" title="Legacy callout" content="Jekyll does not contact WorkflowHub when it builds the site." %}
 
@@ -24,7 +24,7 @@ The snippet `{% raw %}{% include workflow-table.html %}{% endraw %}` adds a tabl
 
 ## The main YAML file
 
-`_data/workflows.yaml` contains a top-level list of workflow records. Only `title` and `url` are required. 
+`_data/workflows.yaml` contains a top-level list of workflow records. Only `title` and `url` are required.
 
 The supported fields are:
 
@@ -108,7 +108,7 @@ workflowhub:
   # base_url: https://workflowhub.eu
 ```
 
-Replace `40` with the collection ID that you would like to use for the site. 
+Replace `40` with the collection ID that you would like to use for the site.
 `base_url` is optional and defaults to `https://workflowhub.eu`.
 
 Create a Python environment and install the generator dependencies:
@@ -125,7 +125,7 @@ From the root of the website repository, run the script from the theme checkout:
 python /path/to/elixir-toolkit-theme/.github/actions/workflowhub/workflowhub_finder.py
 ```
 
-The command writes `_data/workflows.yaml`. Review the resulting diff, preview the site, and commit the data file. 
+The command writes `_data/workflows.yaml`. Review the resulting diff, preview the site, and commit the data file.
 Re-run the command whenever the collection needs to be refreshed.
 
 
